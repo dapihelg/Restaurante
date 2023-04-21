@@ -100,8 +100,10 @@ public class Restaurante {
                     break;
 
                 case 2:
-
-
+                    System.out.println("");
+                    cola.extraer();
+                    cola.imprimir();
+                    System.out.println("");
                     break;
 
                 case 3:
