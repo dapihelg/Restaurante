@@ -24,34 +24,36 @@ public class Restaurante {
             this.aux = null;
         }
 
-        public boolean colaVacia(){
+        public boolean colaVacia() {
             return frente == null;
         }
 
         // Método que inserta
-        public void insertar(Object cliente, Object orden){
-            Nodo nuevo = new Nodo(cliente,orden);
-            if(colaVacia()){
+        public void insertar(Object cliente, Object orden) {
+            Nodo nuevo = new Nodo(cliente, orden);
+            if (colaVacia()) {
                 frente = fondo = nuevo;
-            } else{
+            } else {
                 fondo.siguiente = nuevo;
                 fondo = nuevo;
             }
         }
 
         //Método que elimina órdenes
-        public void extraer(){
-            if(!colaVacia()){
+        public void extraer() {
+            if (!colaVacia()) {
                 frente = frente.siguiente;
-            } else{
+            } else {
                 System.out.println("No hay ordenes");
             }
         }
 
-        public void imprimir(){
+        public void imprimir() {
             Nodo nu = frente;
-            while(nu != null) {
-                System.out.println("Cliente " + nu.cliente + " órden " + nu.orden);
+            int indice = 1;
+            while (nu != null) {
+                System.out.println(indice + " Cliente " + nu.cliente + " órden " + nu.orden);
+                indice++;
                 nu = nu.siguiente;
             }
         }
@@ -59,49 +61,57 @@ public class Restaurante {
 
     public static void main(String[] args) {
         Scanner datos = new Scanner(System.in);
-        int respuesta = 0, respuesta2 = 0;
+        int respuesta, respuesta2;
         String cliente, orden;
 
         Cola cola = new Cola();
 
-        cola.insertar("Roberto", "hamburguesa sencilla");
-        cola.insertar("José", "hamburguesa con queso");
-        cola.insertar("Mario", "hamburguesa sencilla");
-        cola.insertar("Luis", "hamburguesa sencilla");
-        cola.insertar("Alexa", "hamburguesa con queso");
-
-        System.out.println("\n");
-        cola.imprimir();
-        System.out.println("\n");
-        cola.extraer();
-        System.out.println("\n");
-        cola.imprimir();
-        System.out.println("\n");
-
-        do{
+        do {
+            System.out.println("");
             System.out.println("1.- para agregar órden");
             System.out.println("2.- para entregar órden");
             System.out.println("3.- mostrar órdenes ");
             System.out.println("4.- Salir ");
+            System.out.println("");
             respuesta = datos.nextInt();
 
-            switch (respuesta){
+            switch (respuesta) {
 
                 case 1:
+                    System.out.println("");
                     System.out.println("Ingrese el nombre del cliente: ");
                     cliente = datos.next();
-                    System.out.println("Ingrese la órden: \n" +
-                            "1.- Hamburguesa sencilla"+"\n"+"2.- Hamburguesa con queso");
+                    System.out.println("");
+                    System.out.println("""
+                            Ingrese la órden:\s
+                            1.- Hamburguesa sencilla
+                            2.- Hamburguesa con queso""");
                     respuesta2 = datos.nextInt();
-                    if(respuesta2 == 1){
+                    if (respuesta2 == 1) {
                         orden = "Hamburguesa sencilla";
-                    } else{
+                    } else {
                         orden = "Hamburguesa con queso";
                     }
-                    cola.insertar(cliente,orden);
-            }
+                    cola.insertar(cliente, orden);
+                    System.out.println("");
+                    cola.imprimir();
+                    System.out.println("");
 
-        } while(respuesta != 4);
+                    break;
+
+                case 2:
+
+
+                    break;
+
+                case 3:
+                    System.out.println("");
+                    cola.imprimir();
+                    System.out.println("");
+
+
+            }
+        } while (respuesta < 4);
 
     }
 }
