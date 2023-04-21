@@ -1,58 +1,38 @@
+import java.util.Scanner;
+
 public class Restaurante {
-    public static void main(String[] args) {
-        String cliente = "";
-        String pedido = "";
-        Cola cola = new Cola(cliente, pedido);
-
-        cola.insertar("Roberto", "hamburguesa sencilla");
-        cola.insertar("José", "hamburguesa con queso");
-        cola.insertar("Mario", "hamburguesa sencilla");
-        cola.insertar("Luis", "hamburguesa sencilla");
-        cola.insertar("Alexa", "hamburguesa con queso");
-
-        cola.extraer();
-
-
-    }
-
     public static class Nodo {
         Object cliente;
-        Object pedido;
+        Object orden;
         Nodo siguiente;
 
-        public Nodo(Object cliente, Object pedido) {
+        public Nodo(Object cliente, Object orden) {
             this.cliente = cliente;
-            this.pedido = pedido;
+            this.orden = orden;
             this.siguiente = null;
         }
     }
 
     public static class Cola {
-        String cliente;
-        String pedido;
         Nodo frente;
         Nodo fondo;
+        Nodo aux;
 
-        public Cola(String cliente, String pedido) {
-            this.cliente = cliente;
-            this.pedido = pedido;
+        public Cola() {
             this.frente = null;
             this.fondo = null;
+            this.aux = null;
         }
 
         public boolean colaVacia(){
-            return true;
+            return frente == null;
         }
 
         // Método que inserta
-        public void insertar(String cliente, String pedido){
-            Nodo nuevo = new Nodo(cliente,pedido);
-            nuevo.cliente = cliente;
-            nuevo.pedido = pedido;
-
+        public void insertar(String cliente, String orden){
+            Nodo nuevo = new Nodo(cliente,orden);
             if(colaVacia()){
-                frente = nuevo;
-                fondo = nuevo;
+                frente = fondo = nuevo;
             } else{
                 fondo.siguiente = nuevo;
                 fondo = nuevo;
@@ -61,16 +41,59 @@ public class Restaurante {
 
         //Método que elimina órdenes
         public void extraer(){
-            Nodo aux = new Nodo(cliente,pedido);
-            aux = frente;
-            frente.siguiente = frente;
+            if(!colaVacia()){
+                frente = frente.siguiente;
+            } else{
+                System.out.println("No hay ordenes");
+            }
         }
 
-        public void imprimir(String cliente, String pedido){
+        public void imprimir(){
             Nodo nu = frente;
-            System.out.println("Cliente "+nu.cliente+" pedido "+nu.pedido);
-            nu = frente.siguiente;
+            while(nu != null) {
+                System.out.println("Cliente " + nu.cliente + " órden " + nu.orden);
+                nu = nu.siguiente;
+            }
         }
     }
 
+    public static void main(String[] args) {
+        Scanner datos = new Scanner(System.in);
+        int respuesta = 0;
+        String cliente="";
+        String orden="";
+
+        Cola cola = new Cola();
+
+        cola.insertar("Roberto", "hamburguesa sencilla");
+        cola.insertar("José", "hamburguesa con queso");
+        cola.insertar("Mario", "hamburguesa sencilla");
+        cola.insertar("Luis", "hamburguesa sencilla");
+        cola.insertar("Alexa", "hamburguesa con queso");
+
+        System.out.println("\n");
+        cola.imprimir();
+        System.out.println("\n");
+        cola.extraer();
+        System.out.println("\n");
+        cola.imprimir();
+        System.out.println("\n");
+
+        do{
+            System.out.println("1.- para agregar órden");
+            System.out.println("2.- para entregar órden");
+            System.out.println("3.- mostrar órdenes ");
+            System.out.println("4.- Salir ");
+            respuesta = datos.nextInt();
+
+            switch (respuesta){
+
+                case 1:
+
+
+            }
+
+        } while(respuesta != 4);
+
+    }
 }
