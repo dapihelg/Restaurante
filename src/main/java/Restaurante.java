@@ -108,8 +108,8 @@ public class Restaurante {
                     System.out.println("");
                     cola.imprimir();
                     System.out.println("");
-
-
+                                       
+                    break;                   
             }
         } while (respuesta < 4);
 
