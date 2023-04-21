@@ -29,7 +29,7 @@ public class Restaurante {
         }
 
         // Método que inserta
-        public void insertar(String cliente, String orden){
+        public void insertar(Object cliente, Object orden){
             Nodo nuevo = new Nodo(cliente,orden);
             if(colaVacia()){
                 frente = fondo = nuevo;
@@ -59,9 +59,8 @@ public class Restaurante {
 
     public static void main(String[] args) {
         Scanner datos = new Scanner(System.in);
-        int respuesta = 0;
-        String cliente="";
-        String orden="";
+        int respuesta = 0, respuesta2 = 0;
+        String cliente, orden;
 
         Cola cola = new Cola();
 
@@ -89,8 +88,17 @@ public class Restaurante {
             switch (respuesta){
 
                 case 1:
-
-
+                    System.out.println("Ingrese el nombre del cliente: ");
+                    cliente = datos.next();
+                    System.out.println("Ingrese la órden: \n" +
+                            "1.- Hamburguesa sencilla"+"\n"+"2.- Hamburguesa con queso");
+                    respuesta2 = datos.nextInt();
+                    if(respuesta2 == 1){
+                        orden = "Hamburguesa sencilla";
+                    } else{
+                        orden = "Hamburguesa con queso";
+                    }
+                    cola.insertar(cliente,orden);
             }
 
         } while(respuesta != 4);
